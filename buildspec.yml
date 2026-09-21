@@ -1,0 +1,20 @@
+version: 0.2
+# Builds the LB4 app (dist/) here, but does NOT vendor node_modules into the
+# artifact — LEO's backend deploy (deploy_backend, mode="pm2") runs
+# `npm ci` on the prod server itself after extracting this tar.gz, so the
+# artifact only needs package.json/package-lock.json + the built dist/.
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  build:
+    commands:
+      - npm ci
+      - npm run build
+      - mkdir -p /tmp/pkg
+      - cp -r package.json package-lock.json dist /tmp/pkg/
+      - tar -czf /tmp/artifact-$(date -u +%Y%m%d%H%M%S).tar.gz -C /tmp/pkg .
+artifacts:
+  base-directory: /tmp
+  files:
+    - "*.tar.gz"

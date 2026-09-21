@@ -1,0 +1,59 @@
+{
+  "name": "benchmarking-lb4",
+  "version": "0.0.1",
+  "description": "benchmarking-lb4",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": "18 || 20 || 22"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "lint": "npm run eslint",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "rebuild": "npm run clean && npm run build",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "docker:build": "docker build -t benchmarking-lb4 .",
+    "docker:run": "docker run -p 3000:3000 -d benchmarking-lb4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sreetam/benchmarking-lb4"
+  },
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^7.0.6",
+    "@loopback/core": "^6.1.6",
+    "@loopback/repository": "^7.0.6",
+    "@loopback/rest": "^14.0.6",
+    "@loopback/rest-explorer": "^7.0.6",
+    "@loopback/service-proxy": "^7.0.6",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^11.0.5",
+    "@loopback/eslint-config": "^15.0.4",
+    "@loopback/testlab": "^7.0.6",
+    "@types/node": "^16.18.126",
+    "eslint": "^8.57.0",
+    "source-map-support": "^0.5.21",
+    "typescript": "~5.2.2"
+  }
+}

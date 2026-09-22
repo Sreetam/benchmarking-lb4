@@ -12,7 +12,7 @@ phases:
       - npm ci
       - npm run build
       - mkdir -p /tmp/pkg
-      - cp -r package.json package-lock.json dist /tmp/pkg/
+      - cp -r package.json package-lock.json dist public /tmp/pkg/
       - tar -czf /tmp/artifact-$(date -u +%Y%m%d%H%M%S).tar.gz -C /tmp/pkg .
 artifacts:
   base-directory: /tmp
